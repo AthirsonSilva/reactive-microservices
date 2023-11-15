@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.productservice.dto.ProductDto;
 import com.productservice.repository.ProductRepository;
 import com.productservice.util.EntityDtoUtil;
-import com.productservice.util.SubscribeUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,8 +30,6 @@ public class ProductService {
 	public Mono<ProductDto> getProductById(String id) {
 		Mono<ProductDto> product = productRepository.findById(id)
 				.map(EntityDtoUtil::toDto);
-
-		product.subscribe(SubscribeUtil.subscriber());
 
 		return product;
 	}
