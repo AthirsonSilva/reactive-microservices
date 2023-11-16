@@ -12,7 +12,7 @@ import lombok.Data;
 public class UserEntity {
 
 	@Id
-	private Integer id;
+	private Long id;
 	private String name;
 	private Double balance;
 
