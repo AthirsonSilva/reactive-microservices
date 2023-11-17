@@ -29,6 +29,16 @@
 			"projectName": "order-service",
 			"args": "",
 			"envFile": "${workspaceFolder}/.env"
+		},
+		{
+			"type": "java",
+			"name": "Spring Boot-WebfluxDemoApplication<webflux-demo>",
+			"request": "launch",
+			"cwd": "${workspaceFolder}",
+			"mainClass": "com.webflux.webfluxdemo.WebfluxDemoApplication",
+			"projectName": "webflux-demo",
+			"args": "",
+			"envFile": "${workspaceFolder}/.env"
 		}
 	]
 }
