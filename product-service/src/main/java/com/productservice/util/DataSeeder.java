@@ -29,7 +29,7 @@ public class DataSeeder {
 	private Flux<ProductEntity> generateProducts() {
 		List<ProductEntity> productEntities = new ArrayList<>();
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 5; i++) {
 			productEntities.add(ProductEntity.builder()
 					.description(faker.commerce().productName())
 					.price(Double.parseDouble(faker.commerce().price(1.00, 100.00)))
