@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 public class ProductService {
 
 	private final ProductRepository productRepository;
+	private final Sinks.Many<ProductDto> sink;
 
 	public Flux<ProductDto> getAll() {
 		Flux<ProductDto> productList = productRepository.findAll()
@@ -39,7 +41,11 @@ public class ProductService {
 				.map(EntityDtoUtil::toEntity)
 				.flatMap(productRepository::insert)
 				.map(EntityDtoUtil::toDto)
-				.doOnNext(p -> log.info("Saved product: {}", p))
+				.doOnNext(p -> {
+					log.info("Saved product: {}", p);
+
+					sink.tryEmitNext(p);
+				})
 				.doOnError(e -> log.error("Error saving product", e));
 
 		return saved;

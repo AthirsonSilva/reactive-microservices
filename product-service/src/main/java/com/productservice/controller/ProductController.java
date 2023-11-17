@@ -1,5 +1,6 @@
 package com.productservice.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +16,16 @@ import com.productservice.dto.ProductDto;
 import com.productservice.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
-@Log4j2
 public class ProductController {
 
 	private final ProductService productService;
+	private final Flux<ProductDto> productBroadcast;
 
 	@GetMapping
 	public Flux<ProductDto> getAll() {
@@ -37,6 +37,11 @@ public class ProductController {
 		return productService.getProductById(id)
 				.map(ResponseEntity::ok)
 				.defaultIfEmpty(ResponseEntity.notFound().build());
+	}
+
+	@GetMapping(value = "/broadcast", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<ProductDto> getProductBroadcast() {
+		return productBroadcast;
 	}
 
 	@GetMapping("/price")
