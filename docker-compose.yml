@@ -83,6 +83,7 @@ services:
     container_name: user-db
     image: postgres:latest
     environment:
+      - POSTGRES_DB=user-service
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - TZ=America/Sao_Paulo
@@ -96,7 +97,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: order-db
     environment:
-      SA_PASSWORD: ${SA_PASSWORD:-@Potter77}
+      SA_PASSWORD: '@Potter77'
       ACCEPT_EULA: Y
       MSSQL_PID: Developer
     ports:

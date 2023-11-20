@@ -17,7 +17,7 @@ import lombok.extern.log4j.Log4j2;
 @Component
 public class DataSetup implements InitializingBean {
 
-	@Value("${classpath:h2/migration.sql}")
+	@Value("${classpath:db/schema.sql}")
 	private Resource init;
 
 	private final R2dbcEntityTemplate template;
